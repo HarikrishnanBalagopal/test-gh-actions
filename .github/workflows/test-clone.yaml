@@ -45,7 +45,7 @@ jobs:
         pwd
         ls -al
         ls -al /tmp
-        ls -al /tmp/helm-charts-move2kubez
+        ls -al /tmp/helm-charts-move2kube
     - name: copy-the-current-repo
       uses: actions/checkout@v2
     - run: |
