@@ -47,13 +47,17 @@ jobs:
     - name: copy-the-current-repo
       uses: actions/checkout@v2
     - run: |
-        echo 'some info after cloning'
+        echo 'some info after cloning current repo'
         pwd
         ls -al
         ls -al /tmp
     - name: copy-helm-chart-into-pwd
       run: cp -r /tmp/helm-charts-move2kube .
-
+    - run: |
+        echo 'some info after copy-helm-chart-into-pwd'
+        pwd
+        ls -al
+        ls -al /tmp
   # image_build22:
   #   name: Image build
   #   runs-on: ubuntu-latest
