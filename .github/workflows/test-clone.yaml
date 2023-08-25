@@ -37,7 +37,7 @@ jobs:
         ls -al helm-charts
         ls -al /tmp
     - name: copy-helm-chart
-      run: cp -r helm-charts/move2kube /tmp/helm-charts-move2kube
+      run: cp -r helm-charts/ /tmp/helm-charts-move2kube
     - name: cleanup
       run: rm -rf {*,.*} || true
     - run: |
@@ -45,7 +45,7 @@ jobs:
         pwd
         ls -al
         ls -al /tmp
-        ls -al /tmp/helm-charts-move2kube
+        ls -al /tmp/helm-charts-move2kubez
     - name: copy-the-current-repo
       uses: actions/checkout@v2
     - run: |
