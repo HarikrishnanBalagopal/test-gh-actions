@@ -24,7 +24,6 @@ jobs:
         echo 'some info before cloning'
         pwd
         ls -al
-        ls -al helm-charts
         ls -al /tmp
     - name: copy-the-ui-helm-chart
       uses: actions/checkout@v2
@@ -45,8 +44,8 @@ jobs:
         echo 'some info after cleaning up after other repo'
         pwd
         ls -al
-        ls -al helm-charts
         ls -al /tmp
+        ls -al /tmp/helm-charts
     - name: copy-the-current-repo
       uses: actions/checkout@v2
     - run: |
