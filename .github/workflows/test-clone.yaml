@@ -1,0 +1,72 @@
+name: Test clone
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "current tag: The tag for this release"
+        required: true
+        default: v0.1.0-rc.2
+      prev_tag:
+        description: "previous tag: Tag from which to start calculating the changelog"
+        required: true
+        default: v0.1.0-beta.0
+      commit_ref:
+        description: "commit ref: The branch, tag or SHA of the commit to use for the release."
+        required: false
+        default: main
+
+jobs:
+  clone-both:
+    runs-on: ubuntu-latest
+      - run: |
+        echo 'some info before cloning'
+        pwd
+        ls -al
+        ls -al /tmp
+      - name: copy-the-ui-helm-chart
+        uses: actions/checkout@v2
+        repository: 'konveyor/move2kube-ui'
+        ref: ${{ github.event.inputs.tag }}
+      - run: |
+        echo 'some info after cloning the other repo'
+        pwd
+        ls -al
+        ls -al /tmp
+      - name: copy-helm-chart
+        run: cp -r helm-charts/move2kube /tmp/helm-charts-move2kube
+      - name: cleanup
+        run: rm -rf {*,.*} || true
+      - run: |
+        echo 'some info after cleaning up after other repo'
+        pwd
+        ls -al
+        ls -al /tmp
+      - name: copy-the-current-repo
+        uses: actions/checkout@v2
+      - run: |
+        echo 'some info after cloning'
+        pwd
+        ls -al
+        ls -al /tmp
+      - name: copy-helm-chart-into-pwd
+        run: cp -r /tmp/helm-charts-move2kube .
+
+  # image_build22:
+  #   name: Image build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         ref: ${{ github.event.inputs.commit_ref }}
+  #     - name: install-yq
+  #       run: |
+  #         echo "installing yq..."
+  #         curl -L https://github.com/mikefarah/yq/releases/download/v4.13.5/yq_linux_amd64 -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
+  #         echo "yq installed"
+  #     - name: the-real-test
+  #       run: |
+  #         make bundle
+  #     - name: wow
+  #       run: |
+  #         echo 'success?'
