@@ -24,6 +24,7 @@ jobs:
         echo 'some info before cloning'
         pwd
         ls -al
+        ls -al helm-charts
         ls -al /tmp
     - name: copy-the-ui-helm-chart
       uses: actions/checkout@v2
@@ -34,6 +35,7 @@ jobs:
         echo 'some info after cloning the other repo'
         pwd
         ls -al
+        ls -al helm-charts
         ls -al /tmp
     - name: copy-helm-chart
       run: cp -r helm-charts/move2kube /tmp/helm-charts-move2kube
@@ -43,6 +45,7 @@ jobs:
         echo 'some info after cleaning up after other repo'
         pwd
         ls -al
+        ls -al helm-charts
         ls -al /tmp
     - name: copy-the-current-repo
       uses: actions/checkout@v2
@@ -50,13 +53,15 @@ jobs:
         echo 'some info after cloning current repo'
         pwd
         ls -al
+        ls -al helm-charts
         ls -al /tmp
     - name: copy-helm-chart-into-pwd
-      run: cp -r /tmp/helm-charts-move2kube .
+      run: rm -rf helm-charts/ && cp -r /tmp/helm-charts-move2kube helm-charts
     - run: |
         echo 'some info after copy-helm-chart-into-pwd'
         pwd
         ls -al
+        ls -al helm-charts
         ls -al /tmp
   # image_build22:
   #   name: Image build
