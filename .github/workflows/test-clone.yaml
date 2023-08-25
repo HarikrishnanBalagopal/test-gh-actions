@@ -29,7 +29,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: 'konveyor/move2kube-ui'
-        ref: ${{ github.event.inputs.tag }}
     - run: |
         echo 'some info after cloning the other repo'
         pwd
