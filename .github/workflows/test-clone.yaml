@@ -27,8 +27,9 @@ jobs:
         ls -al /tmp
     - name: copy-the-ui-helm-chart
       uses: actions/checkout@v2
-      repository: 'konveyor/move2kube-ui'
-      ref: ${{ github.event.inputs.tag }}
+      with:
+        repository: 'konveyor/move2kube-ui'
+        ref: ${{ github.event.inputs.tag }}
     - run: |
         echo 'some info after cloning the other repo'
         pwd
