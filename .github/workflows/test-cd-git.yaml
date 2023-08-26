@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        git clone github.com/move2kube/community-operators
+        git clone https://github.com/move2kube/community-operators
         ls -al
         cd community-operators
         ls -al
