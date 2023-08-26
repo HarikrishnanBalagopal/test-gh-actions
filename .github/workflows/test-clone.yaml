@@ -21,6 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+      echo 'check curl exists'
+      curl --version
+      curl www.google.com
+      curl https://api.github.com/repos/redhat-openshift-ecosystem/community-operators-prod/pulls
+    - run: |
         echo 'some info before cloning'
         pwd
         ls -al
