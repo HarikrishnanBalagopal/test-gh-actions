@@ -1,0 +1,37 @@
+name: Test cd into cloned on different steps
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "current tag: The tag for this release"
+        required: true
+        default: v0.1.0-rc.2
+      prev_tag:
+        description: "previous tag: Tag from which to start calculating the changelog"
+        required: true
+        default: v0.1.0-beta.0
+      commit_ref:
+        description: "commit ref: The branch, tag or SHA of the commit to use for the release."
+        required: false
+        default: main
+
+jobs:
+  clone-both:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        git clone github.com/move2kube/community-operators
+        ls -al
+        cd community-operators
+        ls -al
+        git status
+        git checkout main
+        ls -al
+    - name: cd into on a different step
+      run: |
+        ls -al
+        cd community-operators
+        ls -al
+        cd operators/move2kube-operator/ || exit 1
+        ls -al
