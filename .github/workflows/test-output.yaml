@@ -26,16 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get_channel
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           script: |
             const version = '${{ github.event.inputs.tag }}';
-            if(/^v\d+\.\d+\.\d+-\w+/.test(version)) {
-              core.setOutput('channel', 'prerelease');
-            } else {
-              core.setOutput('channel', 'stable');
-            }
+            return (/^v\d+\.\d+\.\d+-\w+/.test(version) ? core.setOutput('channel', 'prerelease') : core.setOutput('channel', 'stable');
       - name: build the operator bundle and container images and push the images to quay
         run: |
           VERSION='${{ github.event.inputs.tag }}' CHANNELS='${{ steps.get_channel.outputs.channel }}' DEFAULT_CHANNEL='stable' echo 'hello!'
-
