@@ -33,4 +33,8 @@ jobs:
             return /^v\d+\.\d+\.\d+-\w+/.test(version) ? 'prerelease' : 'stable';
       - name: build the operator bundle and container images and push the images to quay
         run: |
-          VERSION='${{ github.event.inputs.tag }}' CHANNELS='${{ steps.get_channel.outputs.result }}' DEFAULT_CHANNEL='stable' echo 'hello!'
+          echo 'echo "$VERSION"' > foo.sh
+          echo 'echo "$CHANNELS"' >> foo.sh
+          echo 'echo "$DEFAULT_CHANNEL"' >> foo.sh
+          chmod +x foo.sh
+          VERSION='${{ github.event.inputs.tag }}' CHANNELS='${{ steps.get_channel.outputs.result }}' DEFAULT_CHANNEL='stable' ./foo.sh
