@@ -28,6 +28,7 @@ jobs:
       - id: get_channel
         uses: actions/github-script@v6
         with:
+          result-encoding: string
           script: |
             const version = '${{ github.event.inputs.tag }}';
             return /^v\d+\.\d+\.\d+-\w+/.test(version) ? 'prerelease' : 'stable';
